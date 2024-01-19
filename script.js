@@ -13,8 +13,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   let numOfFlippedCards = 0;
   let lastClickedCard = null;
   let clickable = true;
+  let currentUserDisplay = document.getElementById('current-user');
+
 
   loadScores();
+
+  function updateCurrentUserDisplay() {
+    currentUserDisplay.textContent = `Current User: ${username}`;
+  }
 
   function generateRandomColor() {
     const h = Math.floor(Math.random() * 361);
@@ -66,12 +72,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
     username = prompt('Please enter your username');
     localStorage.setItem('username', username);
 
+    updateCurrentUserDisplay();
+
     let numOfPairs = prompt('Please enter the number of pairs of cards');
     COLORS.length = 0; // Clear the COLORS array
     for (let i = 0; i < numOfPairs; i++) {
       let color = generateRandomColor();
       COLORS.push(color, color); // Add the same color twice to the array
     }
+
+    // Get the size of the "main" grid area
+    let gameBoxesStyle = window.getComputedStyle(gameBoxesDiv);
+    let gameBoxesWidth = parseInt(gameBoxesStyle.width);
+    let gameBoxesHeight = parseInt(gameBoxesStyle.height);
+
+    // Calculate the maximum number of columns and rows that can fit in the "main" grid area
+    let maxColumns = Math.floor(gameBoxesWidth / 50);
+    let maxRows = Math.floor(gameBoxesHeight / 50);
+
+    // Calculate the number of columns and rows based on the number of pairs
+    let numCards = numOfPairs * 2;
+    let numColumns = Math.min(Math.ceil(Math.sqrt(numCards)), maxColumns);
+    let numRows = Math.min(Math.ceil(numCards / numColumns), maxRows);
+
+    // Update the CSS rules
+    gameBoxesDiv.style.gridTemplateColumns = `repeat(${numColumns}, minmax(50px, 1fr))`;
+    gameBoxesDiv.style.gridAutoRows = `repeat(${numRows}, minmax(50px, 1fr))`;
+
+
 
     shuffledColors = shuffle(COLORS);
 
@@ -89,6 +117,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     localStorage.setItem('user-scores', JSON.stringify(scores));
 
     loadScores();
+
+    // Add the new score to the High Scores list
+    createScoreItem(username, score);
 
     setTimeout(function () {
       alert('CONGRATULATIONS! GAME OVER!');
@@ -164,8 +195,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     markCardsAsMatched(card, lastClickedCard);
     incrementScore();
     updateScore();
-    lastClickedCard = null; 
-    clickable = true; 
+    lastClickedCard = null;
+    clickable = true;
 
     if (allPairsMatched()) {
       endGame(username, score);

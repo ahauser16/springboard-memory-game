@@ -1,9 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header sidebar"
+    "main main sidebar"
+    "footer footer sidebar";
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#header {
+  grid-area: header;
+}
+
+#footer {
+  grid-area: footer;
+}
+
+#header,
+#footer {
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 3px solid darkred;
+  padding: 10px;
+}
+
+#game {
+  display: grid;
+  grid-area: main;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar {
+  grid-area: sidebar;
+  background-color: hsl(0, 0%, 10%);
+  color: hsl(0, 0%, 90%);
+  border: 3px solid darkred;
+  overflow: auto;
+  /* Add this line */
+
+}
+
+#game #game-boxes {
+  display: grid;
+  gap: 10px;
+  padding: 5px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
 #game #game-boxes div {
   border: 1px solid black;
-  width: 15%;
-  height: 200px;
-  margin: 10px;
-  display: inline-block;
+  display: grid;
+  place-items: center;
 }
 
 .matched {
