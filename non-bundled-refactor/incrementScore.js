@@ -1,0 +1,3 @@
+var incrementScore = function() {
+    score++;
+}

@@ -10,17 +10,8 @@
 <body>
   <h1>Memory Game!</h1>
   <div id="game">
-    <!-- FurtherStudy ("FS") -->
-    <!--FS1-> How could I implement a button that when clicked will start the game? Then in your javascript file select the button using its id and add a 'click' event listener to it.In the event listener callback, call the `createDivsForCOlors(shuffledColors);` function to start the game-->
-    <!-- FS1stepOne-> add the html button element -->
     <button id="start-game">Start Game</button>
-
-    <!--FS2-> How could I implement a button that when clicked will restart the game? First, add a button element to your HTML with an id so you can select it in your JavaScript.  Second, in your JavaScript, select the button using its id and add a click event listener to it.  Third, in the event listener callback, clear the game board and then call the createDivsForColors(shuffledColors); function to restart the game.-->
-    <!-- FS2stepOne-> add the html button element -->
     <button id="restart-game">Restart Game</button>
-
-    <!-- FS3-> when the game starts the buttons disappear.  How can I prevent this? The buttons are disappearing because when you clear the `gameDiv` with `gameDiv.innerHTML = '';`, it also removes the buttons since they are inside the `gameDiv`.  To fix this, you can create a separate `div` for the game boxes and clear that instead.-->
-    <!-- FS3stepOne-> add a div element with an id of game-boxes -->
     <div id="score">Score: 0</div>
     <div id="game-boxes"></div>
     <div id="high-scores">
@@ -28,7 +19,7 @@
       <OL id="score-list"></OL>
     </div>
   </div>
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
